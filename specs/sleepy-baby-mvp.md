@@ -72,7 +72,7 @@ Sleepy Baby is a mobile app that helps parents track baby sleep and predict opti
 
 * **Main Screen — Current State:** Displays whether the baby is currently awake or sleeping, plus a countdown or time estimate to the next sleep window. This is the primary screen users see when opening the app.
 
-* **Dynamic Day Planner:** Projects a full day schedule of naps and bedtime based on the baby's age and corresponding sleep windows. Recalculates automatically as actual sleep is logged — if a nap happens late, everything downstream shifts.
+* **Dynamic Day Planner:** Projects a full day schedule of naps and bedtime based on the baby's age and corresponding sleep windows. Recalculates automatically as actual sleep is logged — if a nap happens late, everything downstream shifts. Projected times are presented as guidance (e.g. "around 2:15 pm"), not exact predictions — competitive research shows users lose trust when apps over-promise precision.
 
 * **Onboarding — Baby Birthdate:** On first launch, a simple screen asks for the baby's birthdate. Age is auto-calculated from this. No name or other fields required.
 
@@ -236,7 +236,7 @@ _To be defined - not yet discussed_
 
 ### Research
 - [x] **Sleep window data:** Researched — see Age-Based Sleep Windows table in Requirements. Sources: AAP, Cleveland Clinic, Mayo Clinic, Weissbluth.
-- [ ] **Competitive analysis:** Review Huckleberry and other sleep tracking apps for UX patterns to adopt or avoid
+- [x] **Competitive analysis:** Reviewed 7 apps (Huckleberry, Baby Tracker, Baby Connect, Glow Baby, Nanit, Nanni AI, Nara). Key validation: front-and-center predictions, one-touch logging, no paywall positioning are confirmed differentiators.
 
 ### Design
 - [ ] **Main screen:** Design the primary view — baby state, countdown to next sleep window, day planner
@@ -264,3 +264,4 @@ _To be defined - not yet discussed_
 - **Transcript:** Design review: history view mockups (Option A selected for MVP)
 - **Mockups:** mockups/option-a-simple-list.html (MVP), mockups/option-c-cards-mini-timeline.html (post-MVP reference)
 - **Research:** research/Age-Appropriate Baby Sleep & Nap Schedule.pdf (sleep window data)
+- **Research:** research/Baby Sleep Tracker UX_ Comparison Matrix.pdf (competitive analysis)
