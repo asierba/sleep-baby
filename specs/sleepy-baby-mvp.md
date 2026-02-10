@@ -282,7 +282,7 @@ _None — all blocking questions resolved_
 - [ ] **Verify Expo web target** works for React Native dev loop (Owner: Sara)
 
 ### Validation
-- [ ] **Validate assumptions** with team: single baby, manual only, local-only, standard guidelines
+- [x] **Validate assumptions** with team: single baby (confirmed), manual only, local-only (confirmed), standard guidelines (confirmed — expert-sourced table accepted as-is). Validated 2026-02-10.
 - [ ] **Define success metrics** for MVP
 
 ---
