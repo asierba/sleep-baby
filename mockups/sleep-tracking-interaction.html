@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sleep Tracking — Interaction States</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f0f0f5;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
+    padding: 20px;
+    color: #1a1a2e;
+  }
+  .label {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #6c5ce7;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .phone {
+    width: 390px;
+    height: 500px;
+    background: #f8f8fc;
+    border-radius: 40px;
+    border: 8px solid #1a1a2e;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* State 1: Awake — Start button */
+  .hero-awake {
+    background: linear-gradient(180deg, #6c5ce7 0%, #8b7cf0 100%);
+    color: white;
+    padding: 20px 24px 28px;
+    text-align: center;
+  }
+  .baby-state {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.2);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .state-dot-awake {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ffeaa7;
+  }
+  .state-dot-sleep {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #a29bfe;
+  }
+  .countdown-label {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-top: 16px;
+  }
+  .countdown-time {
+    font-size: 42px;
+    font-weight: 700;
+    margin-top: 4px;
+    letter-spacing: -1px;
+  }
+  .awake-since {
+    font-size: 13px;
+    opacity: 0.7;
+    margin-top: 12px;
+  }
+  .start-btn {
+    display: block;
+    margin: 20px auto 0;
+    width: 200px;
+    padding: 16px 0;
+    border: none;
+    border-radius: 16px;
+    background: white;
+    color: #6c5ce7;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  }
+  .hint {
+    font-size: 12px;
+    opacity: 0.5;
+    margin-top: 10px;
+  }
+
+  /* State 2: Sleeping — Stop button */
+  .hero-sleeping {
+    background: linear-gradient(180deg, #2d1b69 0%, #4a3580 100%);
+    color: white;
+    padding: 20px 24px 28px;
+    text-align: center;
+  }
+  .elapsed-label {
+    font-size: 14px;
+    opacity: 0.7;
+    margin-top: 16px;
+  }
+  .elapsed-time {
+    font-size: 42px;
+    font-weight: 700;
+    margin-top: 4px;
+    letter-spacing: -1px;
+  }
+  .sleep-since {
+    font-size: 13px;
+    opacity: 0.6;
+    margin-top: 12px;
+  }
+  .stop-btn {
+    display: block;
+    margin: 20px auto 0;
+    width: 200px;
+    padding: 16px 0;
+    border: none;
+    border-radius: 16px;
+    background: #ffeaa7;
+    color: #2d1b69;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+  .delete-link {
+    display: inline-block;
+    margin-top: 14px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  /* State 3: Delete confirmation */
+  .hero-delete {
+    background: linear-gradient(180deg, #2d1b69 0%, #4a3580 100%);
+    color: white;
+    padding: 20px 24px 28px;
+    text-align: center;
+    position: relative;
+  }
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+  }
+  .dialog-area {
+    padding: 60px 24px 0;
+    display: flex;
+    justify-content: center;
+  }
+  .dialog {
+    background: white;
+    border-radius: 20px;
+    padding: 28px 24px 20px;
+    width: 320px;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    position: relative;
+    z-index: 10;
+  }
+  .dialog-icon {
+    font-size: 36px;
+    margin-bottom: 12px;
+  }
+  .dialog h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a2e;
+  }
+  .dialog p {
+    font-size: 14px;
+    color: #888;
+    margin-top: 8px;
+    line-height: 1.4;
+  }
+  .dialog-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .dialog-btn {
+    flex: 1;
+    padding: 12px 0;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .dialog-btn.cancel {
+    background: #f0f0f5;
+    color: #1a1a2e;
+  }
+  .dialog-btn.delete {
+    background: #ff6b6b;
+    color: white;
+  }
+</style>
+</head>
+<body>
+
+<!-- STATE 1: Awake — tap to start sleep -->
+<div>
+  <div class="label">1. Awake State</div>
+  <div class="phone">
+    <div class="hero-awake">
+      <div class="baby-state">
+        <div class="state-dot-awake"></div>
+        Awake
+      </div>
+      <div class="countdown-label">Next nap window in</div>
+      <div class="countdown-time">~1h 45m</div>
+      <div class="awake-since">Awake since 11:00 AM</div>
+      <button class="start-btn">Start Sleep</button>
+      <div class="hint">Tap when baby falls asleep</div>
+    </div>
+  </div>
+</div>
+
+<!-- STATE 2: Sleeping — tap to stop + delete option -->
+<div>
+  <div class="label">2. Sleeping State</div>
+  <div class="phone">
+    <div class="hero-sleeping">
+      <div class="baby-state">
+        <div class="state-dot-sleep"></div>
+        Sleeping
+      </div>
+      <div class="elapsed-label">Nap 2 in progress</div>
+      <div class="elapsed-time">0h 25m</div>
+      <div class="sleep-since">Started at 2:00 PM</div>
+      <button class="stop-btn">Stop Sleep</button>
+      <div class="hint" style="opacity: 0.6;">Tap when baby wakes up</div>
+      <div class="delete-link">Accidental tap? Delete this entry</div>
+    </div>
+  </div>
+</div>
+
+<!-- STATE 3: Delete confirmation dialog -->
+<div>
+  <div class="label">3. Delete Confirmation</div>
+  <div class="phone">
+    <div class="hero-delete">
+      <div class="overlay"></div>
+      <div style="position: relative; z-index: 1; opacity: 0.3;">
+        <div class="baby-state">
+          <div class="state-dot-sleep"></div>
+          Sleeping
+        </div>
+        <div class="elapsed-label">Nap 2 in progress</div>
+        <div class="elapsed-time">0h 25m</div>
+      </div>
+    </div>
+    <div style="position: relative;">
+      <div class="overlay" style="position: absolute; inset: 0;"></div>
+      <div class="dialog-area">
+        <div class="dialog">
+          <div class="dialog-icon">🗑️</div>
+          <h3>Delete this nap?</h3>
+          <p>This will remove the current sleep entry that started at 2:00 PM. The baby will be marked as awake.</p>
+          <div class="dialog-actions">
+            <button class="dialog-btn cancel">Keep</button>
+            <button class="dialog-btn delete">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

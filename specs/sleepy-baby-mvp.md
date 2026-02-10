@@ -268,11 +268,11 @@ _None — all blocking questions resolved_
 - [x] **Competitive analysis:** Reviewed 7 apps (Huckleberry, Baby Tracker, Baby Connect, Glow Baby, Nanit, Nanni AI, Nara). Key validation: front-and-center predictions, one-touch logging, no paywall positioning are confirmed differentiators.
 
 ### Design
-- [ ] **Main screen:** Design the primary view — baby state, countdown to next sleep window, day planner
-- [ ] **Day planner:** Design the dynamic schedule view showing projected naps and bedtime
-- [ ] **Sleep tracking interaction:** Design start/stop button, delete flow for accidental taps
-- [ ] **Onboarding:** Design first-launch birthdate entry screen
-- [ ] **Sleep history:** Design view/edit/add interface for card list format
+- [x] **Main screen:** Minimal hero with countdown as dominant element + vertical timeline day planner below. See mockups/main-screen-awake.html, mockups/main-screen-sleeping.html
+- [x] **Day planner:** Vertical timeline — solid dots/cards for completed naps, dashed for projected. Bedtime as last entry. See mockups/main-screen-awake.html
+- [x] **Sleep tracking interaction:** Start/Stop button in hero. Delete via link below stop button + confirmation dialog. See mockups/sleep-tracking-interaction.html
+- [x] **Onboarding:** Single screen — birthdate MM/DD/YYYY fields, live age preview with nap count, privacy note. See mockups/onboarding.html
+- [x] **Sleep history:** Card list grouped by day. See mockups/sleep-history/option-a-simple-list.html
 
 ### Technical
 - [ ] **Project scaffolding:** Set up Expo project, build tooling, CI
@@ -291,6 +291,9 @@ _None — all blocking questions resolved_
 - **Transcript:** transcripts/2026-02/2026-02-10-planning-sleepy-baby-mvp-kickoff.md
 - **Transcript:** transcripts/2026-02/2026-02-10-technical-platform-decision-react-native-with-expo.md
 - **Transcript:** Design review: history view mockups (Option A selected for MVP)
-- **Mockups:** mockups/option-a-simple-list.html (MVP), mockups/option-c-cards-mini-timeline.html (post-MVP reference)
+- **Mockups:** mockups/main-screen-awake.html, mockups/main-screen-sleeping.html (main screen)
+- **Mockups:** mockups/sleep-tracking-interaction.html (start/stop/delete interaction states)
+- **Mockups:** mockups/onboarding.html (birthdate entry)
+- **Mockups:** mockups/sleep-history/option-a-simple-list.html (MVP), mockups/sleep-history/option-c-cards-mini-timeline.html (post-MVP reference)
 - **Research:** research/Age-Appropriate Baby Sleep & Nap Schedule.pdf (sleep window data)
 - **Research:** research/Baby Sleep Tracker UX_ Comparison Matrix.pdf (competitive analysis)
