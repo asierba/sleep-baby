@@ -139,7 +139,7 @@ _None — all product questions resolved_
 
 ## 1. Technical Approach
 
-React Native with Expo. Web target for local development (browser-based dev loop, no emulators required). Native builds via EAS Build for app store distribution. Android focus for dev team; iOS testing handled by dedicated testers. Local-only data persistence via expo-sqlite, no backend. The core technical challenge is the dynamic day planner algorithm that projects nap times based on age-appropriate sleep windows and recalculates as actual sleep is logged.
+React Native with Expo. Web target for local development (browser-based dev loop, no emulators required). Expo Go for on-device testing via QR code. Native builds via EAS Build for app store distribution. Android focus for dev team; iOS testing handled by dedicated testers. Local-only data persistence via expo-sqlite, no backend. The core technical challenge is the dynamic day planner algorithm that projects nap times based on age-appropriate sleep windows and recalculates as actual sleep is logged.
 
 ---
 
@@ -255,6 +255,8 @@ _None — all blocking questions resolved_
 2. **No backend required:** Local-only data, no authentication, no cloud sync. Confirmed for MVP scope.
 
 3. **Web target parity:** Expo's web target provides sufficient fidelity for development. If wrong, may need emulator-based dev workflow. (Sara to verify)
+
+4. **Schema stability for MVP:** Current two-table schema (baby, sleep_entry) is sufficient for MVP. If wrong, a migration strategy will be needed — noted in ADR-002 as a post-MVP concern.
 
 ---
 
