@@ -218,7 +218,7 @@ _To be defined - not yet discussed_
 ### Decisions Required
 - [x] **Platform choice:** React Native with Expo (decided 2026-02-10)
 - [x] **History view format:** Simple card list for MVP (decided 2026-02-10, design review)
-- [ ] **Local storage library:** depends on platform choice
+- [ ] **Local storage library:** evaluate React Native/Expo-compatible options
 
 ### Research
 - [ ] **Sleep window data:** Research and document standard pediatric sleep window durations per age bracket (newborn through toddler)
