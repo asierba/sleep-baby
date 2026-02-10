@@ -139,7 +139,7 @@ _None — all product questions resolved_
 
 ## 1. Technical Approach
 
-React Native with Expo. Web target for local development (browser-based dev loop, no emulators required). Expo Go for on-device testing via QR code. Native builds via EAS Build for app store distribution. Android focus for dev team; iOS testing handled by dedicated testers. Local-only data persistence via expo-sqlite, no backend. The core technical challenge is the dynamic day planner algorithm that projects nap times based on age-appropriate sleep windows and recalculates as actual sleep is logged.
+React Native with Expo ([ADR-001](adr-001-use-react-native-with-expo-over-pwa.md)) with local-only persistence via expo-sqlite ([ADR-002](adr-002-use-expo-sqlite-for-local-data-persistence.md)). No backend. The core technical challenge is the dynamic day planner algorithm that projects nap times based on age-appropriate sleep windows and recalculates as actual sleep is logged.
 
 ---
 
@@ -220,8 +220,7 @@ _N/A — greenfield project_
 _To be defined - not yet discussed_
 
 ### New Libraries/Dependencies
-- **expo-sqlite** — local SQLite database
-- **expo-router** — file-based navigation
+See [ADR-001](adr-001-use-react-native-with-expo-over-pwa.md) (Expo, Expo Router) and [ADR-002](adr-002-use-expo-sqlite-for-local-data-persistence.md) (expo-sqlite).
 
 ---
 
@@ -244,7 +243,7 @@ _To be defined - not yet discussed_
 _None — all blocking questions resolved_
 
 ### Resolved
-**Q1:** What local storage library? **Resolved:** expo-sqlite. First-party Expo support, SQL queries for history views, structured schema fits sleep entries + baby profile. Decided 2026-02-10.
+**Q1:** What local storage library? **Resolved:** expo-sqlite — see [ADR-002](adr-002-use-expo-sqlite-for-local-data-persistence.md).
 
 ### Decide During Implementation
 **Q2:** Wake window strategy — should projections use midpoint, conservative (shorter), or user-configurable wake windows? Decide when building the day planner algorithm.
@@ -254,18 +253,16 @@ _None — all blocking questions resolved_
 
 2. **No backend required:** Local-only data, no authentication, no cloud sync. Confirmed for MVP scope.
 
-3. **Web target parity:** Expo's web target provides sufficient fidelity for development. If wrong, may need emulator-based dev workflow. (Sara to verify)
-
-4. **Schema stability for MVP:** Current two-table schema (baby, sleep_entry) is sufficient for MVP. If wrong, a migration strategy will be needed — noted in ADR-002 as a post-MVP concern.
+3. **Web target parity and schema stability:** See assumptions in [ADR-001](adr-001-use-react-native-with-expo-over-pwa.md) and [ADR-002](adr-002-use-expo-sqlite-for-local-data-persistence.md).
 
 ---
 
 ## Action Items
 
 ### Decisions Required
-- [x] **Platform choice:** React Native with Expo (decided 2026-02-10)
+- [x] **Platform choice:** React Native with Expo — [ADR-001](adr-001-use-react-native-with-expo-over-pwa.md)
 - [x] **History view format:** Simple card list for MVP (decided 2026-02-10, design review)
-- [x] **Local storage library:** expo-sqlite (decided 2026-02-10)
+- [x] **Local storage library:** expo-sqlite — [ADR-002](adr-002-use-expo-sqlite-for-local-data-persistence.md)
 
 ### Research
 - [x] **Sleep window data:** Researched — see Age-Based Sleep Windows table in Requirements. Sources: AAP, Cleveland Clinic, Mayo Clinic, Weissbluth.
