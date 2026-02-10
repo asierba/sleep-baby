@@ -1,0 +1,21 @@
+Research and analyze existing baby sleep tracking apps, focusing on UX patterns to adopt or avoid for a new entrant.
+
+Apps to cover: Huckleberry (main competitor — hides predictions behind notifications + premium paywall), Baby Tracker (Nighp), Baby Connect, Glow Baby, Nanit (app component), Wonder Weeks (sleep-related features). Include any other notable apps discovered during research.
+
+For each app, analyze:
+1. Core sleep tracking UX — how does the user log sleep start/stop? How many taps? One-handed usability?
+2. Sleep predictions/recommendations — does it predict next nap time? How is it surfaced (main screen, notification, buried in a tab)?
+3. Sleep history view — list, timeline, chart? How far back? Editability of past entries?
+4. Onboarding — what info is required to start? How many steps?
+5. Monetization model — free vs premium, what's behind the paywall?
+6. Key strengths — what do users praise in reviews?
+7. Key complaints — what do users consistently criticize? (check App Store / Play Store reviews)
+8. Unique features — anything novel or differentiating?
+
+Deliverables:
+1. Comparison matrix — structured table across all apps for the dimensions above
+2. UX patterns to adopt — proven patterns that work well across multiple apps
+3. UX patterns to avoid — common pain points or antipatterns
+4. Opportunities — gaps in the market that no current app addresses well
+
+Context: We're building a sleep tracking app called Sleepy Baby. Our differentiator: the answer to "when should the baby sleep next?" is front and center on the main screen — no notifications to dismiss, no paywall. MVP is React Native with Expo, local-only data, single baby. We want to learn from what exists without copying what doesn't work.
