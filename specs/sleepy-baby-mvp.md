@@ -217,5 +217,35 @@ _To be defined - not yet discussed_
 
 ---
 
+## Action Items
+
+### Decisions Required
+- [ ] **Platform choice:** React Native vs PWA (blocks all technical work)
+- [ ] **History view format:** list, timeline, chart, or combination (blocks design of history screen)
+- [ ] **Local storage library:** depends on platform choice
+
+### Research
+- [ ] **Sleep window data:** Research and document standard pediatric sleep window durations per age bracket (newborn through toddler)
+- [ ] **Competitive analysis:** Review Huckleberry and other sleep tracking apps for UX patterns to adopt or avoid
+
+### Design
+- [ ] **Main screen:** Design the primary view — baby state, countdown to next sleep window, day planner
+- [ ] **Day planner:** Design the dynamic schedule view showing projected naps and bedtime
+- [ ] **Sleep tracking interaction:** Design start/stop button, delete flow for accidental taps
+- [ ] **Onboarding:** Design first-launch birthdate entry screen
+- [ ] **Sleep history:** Design view/edit/add interface (blocked by history format decision)
+
+### Technical
+- [ ] **Project scaffolding:** Set up repo, build tooling, CI (blocked by platform choice)
+- [ ] **Data model:** Define local storage schema for sleep entries and baby profile
+- [ ] **Sleep window algorithm:** Implement day planner projection and recalculation logic
+- [ ] **Technical spec:** Fill in architecture, components, and testing sections (blocked by platform choice)
+
+### Validation
+- [ ] **Validate assumptions** with team: single baby, manual only, local-only, standard guidelines
+- [ ] **Define success metrics** for MVP
+
+---
+
 ## References
 - **Transcript:** transcripts/2026-02/2026-02-10-planning-sleepy-baby-mvp-kickoff.md
