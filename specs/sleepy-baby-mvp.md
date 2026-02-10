@@ -12,7 +12,8 @@ Sleepy Baby is a mobile app that helps parents track baby sleep and predict opti
 ### Target Users & Success Metrics
 - **Users:** Parents with babies who need to manage nap schedules
 - **Success Metrics:**
-  - _To be defined - not yet discussed_
+  - App becomes the first instinct when wondering "when's the next nap?" — replaces guessing or checking other apps
+  - Parents confidently make plans around the day planner (errands, meals, visits) without second-guessing it
 
 ---
 
@@ -283,7 +284,7 @@ _None — all blocking questions resolved_
 
 ### Validation
 - [x] **Validate assumptions** with team: single baby (confirmed), manual only, local-only (confirmed), standard guidelines (confirmed — expert-sourced table accepted as-is). Validated 2026-02-10.
-- [ ] **Define success metrics** for MVP
+- [x] **Define success metrics** for MVP: trust-based — app as first instinct + confidence to plan around it. Defined 2026-02-10.
 
 ---
 
