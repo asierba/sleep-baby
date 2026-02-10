@@ -76,7 +76,21 @@ Sleepy Baby is a mobile app that helps parents track baby sleep and predict opti
 
 * **Onboarding — Baby Birthdate:** On first launch, a simple screen asks for the baby's birthdate. Age is auto-calculated from this. No name or other fields required.
 
-* **Age-Based Sleep Windows:** Sleep window durations are determined by baby age (derived from birthdate entered at onboarding). Durations follow standard pediatric sleep guidelines (to be researched). Windows get longer and nap count decreases as baby grows.
+* **Age-Based Sleep Windows:** Sleep window durations are determined by baby age (derived from birthdate entered at onboarding). Windows get longer and nap count decreases as baby grows. The app uses conservative (shorter) values from expert ranges to avoid overtiredness.
+
+  | Age (mo) | Wake window (h) | Naps/day | Nap length (h) | Bedtime |
+  |----------|----------------|----------|----------------|---------|
+  | 0–1 | 0.5–1.0 (0.75) | 5–6 | 0.5–2.0 (1.0) | 7:00–8:00 pm |
+  | 1–2 | 1.0–2.0 (1.5) | 5–6 | 0.5–2.0 (1.0) | 7:00–8:00 pm |
+  | 2–3 | 1.0–2.0 (1.5) | 4–5 | 0.5–2.0 (1.0) | 7:00–8:00 pm |
+  | 3–4 | 1.25–2.5 (1.9) | 4–5 | 0.5–2.0 (1.0) | 6:30–7:30 pm |
+  | 4–6 | 2.0–3.0 (2.5) | 3–4 | 0.5–2.0 (1.25) | 6:30–8:00 pm |
+  | 6–9 | 2.5–3.5 (3.0) | 2–3 | 1.0–2.0 (1.5) | 6:30–7:30 pm |
+  | 9–12 | 3.0–4.0 (3.5) | 2 | 1.0–2.0 (1.5) | 6:30–7:30 pm |
+  | 12–18 | 4.0–5.0 (4.5) | 1–2 | 1.0–3.0 (2.0) | 7:00–8:00 pm |
+  | 18–24 | 4.0–6.0 (5.0) | 1 | 1.0–3.0 (2.0) | 7:00–8:00 pm |
+
+  Sources: AAP/AASM recommendations, Cleveland Clinic (Dr. Barrett), Mayo Clinic, Weissbluth pediatric sleep guides. Where experts differed, conservative (shorter) wake windows were used.
 
 * **Sleep History:** Users can view and edit past sleep entries. MVP format: simple card list grouped by day (reverse chronological, today first with "Today" badge). Each card shows nap label (Nap 1/2/3, Night Sleep), time range (start → end), and duration. Nap vs night entries are visually distinct. Floating add button (+) for new entries. Tap any card to edit. Post-MVP: mini timeline header per day with wake window duration color-coded green/orange on each card (v1.1), then collapsible timeline hybrid — collapsed by default, tap to expand, today auto-expanded (v1.2).
 
@@ -110,7 +124,7 @@ _None — all product questions resolved_
 
 3. **Local-only data storage:** No user accounts, no cloud sync. Data lives on-device only. If wrong, need backend and auth from the start.
 
-4. **Standard pediatric sleep guidelines:** Sleep window durations will be sourced from widely-accepted pediatric recommendations. If specific guidelines are preferred, they can be provided later.
+4. **Standard pediatric sleep guidelines:** Sleep window durations sourced from AAP/AASM, Cleveland Clinic, Mayo Clinic, and Weissbluth. Conservative (shorter) values used when sources disagree. If wrong, data table can be adjusted without architectural changes.
 
 ---
 
@@ -221,7 +235,7 @@ _To be defined - not yet discussed_
 - [ ] **Local storage library:** evaluate React Native/Expo-compatible options
 
 ### Research
-- [ ] **Sleep window data:** Research and document standard pediatric sleep window durations per age bracket (newborn through toddler)
+- [x] **Sleep window data:** Researched — see Age-Based Sleep Windows table in Requirements. Sources: AAP, Cleveland Clinic, Mayo Clinic, Weissbluth.
 - [ ] **Competitive analysis:** Review Huckleberry and other sleep tracking apps for UX patterns to adopt or avoid
 
 ### Design
@@ -249,3 +263,4 @@ _To be defined - not yet discussed_
 - **Transcript:** transcripts/2026-02/2026-02-10-technical-platform-decision-react-native-with-expo.md
 - **Transcript:** Design review: history view mockups (Option A selected for MVP)
 - **Mockups:** mockups/option-a-simple-list.html (MVP), mockups/option-c-cards-mini-timeline.html (post-MVP reference)
+- **Research:** research/Age-Appropriate Baby Sleep & Nap Schedule.pdf (sleep window data)
