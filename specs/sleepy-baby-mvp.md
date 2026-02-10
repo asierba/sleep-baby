@@ -138,14 +138,18 @@ _None — all product questions resolved_
 
 ## 1. Technical Approach
 
-React Native with Expo. Web target for local development (browser-based dev loop, no emulators required). Native builds via EAS Build for app store distribution. Android focus for dev team; iOS testing handled by dedicated testers. Local-only data persistence, no backend. The core technical challenge is the dynamic day planner algorithm that projects nap times based on age-appropriate sleep windows and recalculates as actual sleep is logged. Storage library depends on React Native ecosystem options.
+React Native with Expo. Web target for local development (browser-based dev loop, no emulators required). Native builds via EAS Build for app store distribution. Android focus for dev team; iOS testing handled by dedicated testers. Local-only data persistence via expo-sqlite, no backend. The core technical challenge is the dynamic day planner algorithm that projects nap times based on age-appropriate sleep windows and recalculates as actual sleep is logged.
 
 ---
 
 ## 2. System Changes
 
 ### New Components/Capabilities
-_To be defined - not yet discussed_
+- **Main Screen:** Current baby state (awake/sleeping), countdown to next sleep window, projected day plan
+- **Sleep History Screen:** Card list grouped by day, edit/add entries
+- **Onboarding Screen:** Birthdate entry on first launch
+- **Day Planner Algorithm:** Pure function — takes baby age + today's sleep entries, returns projected schedule
+- **Data Repository:** Thin layer over expo-sqlite for sleep entries and baby profile queries
 
 ### Modifications to Existing Components
 _N/A — greenfield project_
@@ -154,14 +158,21 @@ _N/A — greenfield project_
 
 ## 3. Architecture
 
-_To be defined - not yet discussed_
+- **Navigation:** Expo Router (file-based routing)
+- **State Management:** React context for baby state (awake/sleeping) and current day plan. No external state library.
+- **Data Layer:** Repository pattern over expo-sqlite — encapsulates all SQL queries
+- **Day Planner Algorithm:** Pure function: `projectDayPlan(babyAgeMonths, todaySleepEntries) → DayPlan`. Looks up age bracket from sleep window table, calculates next nap from last wake time + wake window, repeats until naps/day reached, then projects bedtime. Called on app open and after each log/edit.
+- **Edge Cases:** No entries today → prompt to log first wake. Baby sleeping → project wake from nap length, then continue. Running late → recalculate from now. Last nap vs bedtime → show bedtime when wake window pushes into bedtime range.
 
 ---
 
 ## 4. Architectural Context
 
 ### Architecture Patterns
-_To be defined - not yet discussed_
+- File-based routing (Expo Router)
+- Context-based state management
+- Repository pattern for data access
+- Pure functions for business logic (day planner algorithm)
 
 ### Relevant ADRs
 _None yet_
@@ -177,7 +188,21 @@ _To be defined - not yet discussed_
 _To be defined - not yet discussed_
 
 ### Data Models
-_To be defined - not yet discussed_
+
+**Table: `baby`**
+| Column | Type | Notes |
+|--------|------|-------|
+| `id` | INTEGER PK | |
+| `birthdate` | TEXT (ISO date) | Used to derive age for sleep window lookup |
+
+**Table: `sleep_entry`**
+| Column | Type | Notes |
+|--------|------|-------|
+| `id` | INTEGER PK AUTOINCREMENT | |
+| `baby_id` | INTEGER FK → baby.id | |
+| `started_at` | TEXT (ISO datetime) | When baby fell asleep |
+| `ended_at` | TEXT (ISO datetime) | NULL = currently sleeping |
+| `type` | TEXT | `nap` or `night` |
 
 ### Event Models
 _To be defined - not yet discussed_
@@ -193,7 +218,8 @@ _N/A — greenfield project_
 _To be defined - not yet discussed_
 
 ### New Libraries/Dependencies
-_To be defined - not yet discussed_
+- **expo-sqlite** — local SQLite database
+- **expo-router** — file-based navigation
 
 ---
 
@@ -213,10 +239,13 @@ _To be defined - not yet discussed_
 ## 8. Open Questions
 
 ### Needs Answer Before Implementation
-**Q1:** What local storage library? (Platform decided: React Native with Expo — evaluate React Native-compatible options)
-  - Owner: Engineering
-  - Needed by: Before development
-  - Context: Affects data model implementation and query capabilities
+_None — all blocking questions resolved_
+
+### Resolved
+**Q1:** What local storage library? **Resolved:** expo-sqlite. First-party Expo support, SQL queries for history views, structured schema fits sleep entries + baby profile. Decided 2026-02-10.
+
+### Decide During Implementation
+**Q2:** Wake window strategy — should projections use midpoint, conservative (shorter), or user-configurable wake windows? Decide when building the day planner algorithm.
 
 ### Assumptions We're Making
 1. **Greenfield project:** No existing codebase or infrastructure to integrate with. If wrong, need to assess existing systems.
@@ -232,7 +261,7 @@ _To be defined - not yet discussed_
 ### Decisions Required
 - [x] **Platform choice:** React Native with Expo (decided 2026-02-10)
 - [x] **History view format:** Simple card list for MVP (decided 2026-02-10, design review)
-- [ ] **Local storage library:** evaluate React Native/Expo-compatible options
+- [x] **Local storage library:** expo-sqlite (decided 2026-02-10)
 
 ### Research
 - [x] **Sleep window data:** Researched — see Age-Based Sleep Windows table in Requirements. Sources: AAP, Cleveland Clinic, Mayo Clinic, Weissbluth.
@@ -247,9 +276,9 @@ _To be defined - not yet discussed_
 
 ### Technical
 - [ ] **Project scaffolding:** Set up Expo project, build tooling, CI
-- [ ] **Data model:** Define local storage schema for sleep entries and baby profile
-- [ ] **Sleep window algorithm:** Implement day planner projection and recalculation logic
-- [ ] **Technical spec:** Fill in architecture, components, and testing sections
+- [x] **Data model:** Two tables — `baby` (id, birthdate), `sleep_entry` (id, baby_id FK, started_at, ended_at, type)
+- [x] **Sleep window algorithm:** Designed — pure function `projectDayPlan(babyAgeMonths, todaySleepEntries) → DayPlan`
+- [x] **Technical spec:** Architecture, components, data model, dependencies filled in
 - [ ] **Verify Expo web target** works for React Native dev loop (Owner: Sara)
 
 ### Validation
