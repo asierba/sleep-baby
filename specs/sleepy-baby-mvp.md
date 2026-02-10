@@ -52,8 +52,8 @@ Sleepy Baby is a mobile app that helps parents track baby sleep and predict opti
 
 **Steps:**
 1. User navigates to sleep history
-2. System displays past sleep entries in [OPEN QUESTION: list, timeline, or chart format — see Q1]
-3. User edits an existing entry (fix start/end time) or adds an entirely new past entry they forgot to log
+2. System displays past sleep entries grouped by day (reverse chronological). Each day section shows a stack of cards — each card displays: nap label (Nap 1, Nap 2, Night Sleep), time range, and duration. Nap and night sleep entries are visually distinguished.
+3. User taps a card to edit an existing entry, or taps the add button (+) to create a new past entry
 4. System updates records and recalculates the day plan if the edit affects today
 
 **Success:** Past entries are corrected and the day plan reflects accurate data
@@ -78,7 +78,7 @@ Sleepy Baby is a mobile app that helps parents track baby sleep and predict opti
 
 * **Age-Based Sleep Windows:** Sleep window durations are determined by baby age (derived from birthdate entered at onboarding). Durations follow standard pediatric sleep guidelines (to be researched). Windows get longer and nap count decreases as baby grows.
 
-* **Sleep History:** Users can view and edit past sleep entries. Presentation format [OPEN QUESTION: list, timeline, chart, or combination — see Q1].
+* **Sleep History:** Users can view and edit past sleep entries. MVP format: simple card list grouped by day (reverse chronological, today first with "Today" badge). Each card shows nap label (Nap 1/2/3, Night Sleep), time range (start → end), and duration. Nap vs night entries are visually distinct. Floating add button (+) for new entries. Tap any card to edit. Post-MVP: mini timeline header per day with wake window duration color-coded green/orange on each card (v1.1), then collapsible timeline hybrid — collapsed by default, tap to expand, today auto-expanded (v1.2).
 
 ### Out of Scope
 * Push notifications / reminders
@@ -98,10 +98,10 @@ Sleepy Baby is a mobile app that helps parents track baby sleep and predict opti
 ## 4. Open Questions
 
 ### Needs Answer Before Implementation
-**Q1:** What format should the sleep history view take — list, timeline, chart, or combination?
-  - Owner: Design
-  - Needed by: Before design
-  - Context: Referenced in Sleep History requirement and Edit Past Sleep workflow
+_None — all product questions resolved_
+
+### Resolved
+**Q1:** What format should the sleep history view take? **Resolved:** Simple card list for MVP. Phased evolution: mini timeline header (v1.1), collapsible timeline hybrid with today auto-expanded (v1.2). Decided 2026-02-10, design review.
 
 ### Assumptions We're Making
 1. **Single baby per account:** MVP supports only one baby. This simplifies data model and UI. If wrong, data model may need restructuring.
@@ -217,7 +217,7 @@ _To be defined - not yet discussed_
 
 ### Decisions Required
 - [x] **Platform choice:** React Native with Expo (decided 2026-02-10)
-- [ ] **History view format:** list, timeline, chart, or combination (blocks design of history screen)
+- [x] **History view format:** Simple card list for MVP (decided 2026-02-10, design review)
 - [ ] **Local storage library:** depends on platform choice
 
 ### Research
@@ -229,7 +229,7 @@ _To be defined - not yet discussed_
 - [ ] **Day planner:** Design the dynamic schedule view showing projected naps and bedtime
 - [ ] **Sleep tracking interaction:** Design start/stop button, delete flow for accidental taps
 - [ ] **Onboarding:** Design first-launch birthdate entry screen
-- [ ] **Sleep history:** Design view/edit/add interface (blocked by history format decision)
+- [ ] **Sleep history:** Design view/edit/add interface for card list format
 
 ### Technical
 - [ ] **Project scaffolding:** Set up Expo project, build tooling, CI
@@ -247,3 +247,5 @@ _To be defined - not yet discussed_
 ## References
 - **Transcript:** transcripts/2026-02/2026-02-10-planning-sleepy-baby-mvp-kickoff.md
 - **Transcript:** transcripts/2026-02/2026-02-10-technical-platform-decision-react-native-with-expo.md
+- **Transcript:** Design review: history view mockups (Option A selected for MVP)
+- **Mockups:** mockups/option-a-simple-list.html (MVP), mockups/option-c-cards-mini-timeline.html (post-MVP reference)
