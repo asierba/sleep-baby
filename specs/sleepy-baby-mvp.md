@@ -176,7 +176,8 @@ _N/A — greenfield project_
 - Pure functions for business logic (day planner algorithm)
 
 ### Relevant ADRs
-_None yet_
+- [ADR-001: Use React Native with Expo over PWA](adr-001-use-react-native-with-expo-over-pwa.md)
+- [ADR-002: Use expo-sqlite for local data persistence](adr-002-use-expo-sqlite-for-local-data-persistence.md)
 
 ### Architecture Guidelines
 _To be defined - not yet discussed_
