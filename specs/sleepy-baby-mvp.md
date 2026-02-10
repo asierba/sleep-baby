@@ -90,7 +90,7 @@ Sleepy Baby is a mobile app that helps parents track baby sleep and predict opti
 
 ### Constraints & Dependencies
 * **UX:** Must work well on mobile — one-handed use while holding a baby is the primary interaction mode
-* **Technical:** [DECISION PENDING: React Native vs PWA — see Q2]. Local-only data storage, no backend.
+* **Technical:** React Native with Expo. Local-only data storage, no backend. App store distribution via EAS Build.
 * **Timeline:** No hard deadline. Quality over speed. Alex personally motivated to have something usable before second child arrives.
 
 ---
@@ -102,12 +102,6 @@ Sleepy Baby is a mobile app that helps parents track baby sleep and predict opti
   - Owner: Design
   - Needed by: Before design
   - Context: Referenced in Sleep History requirement and Edit Past Sleep workflow
-
-**Q2:** What platform — React Native or PWA?
-  - Owner: Engineering/Product
-  - Needed by: Before development
-  - Context: Must work well on mobile with one-handed use. Affects entire tech stack, storage strategy, and deployment.
-
 
 ### Assumptions We're Making
 1. **Single baby per account:** MVP supports only one baby. This simplifies data model and UI. If wrong, data model may need restructuring.
@@ -130,7 +124,7 @@ Sleepy Baby is a mobile app that helps parents track baby sleep and predict opti
 
 ## 1. Technical Approach
 
-[DECISION PENDING: React Native vs PWA — see Product Spec Q2]. Local-only data persistence, no backend. The core technical challenge is the dynamic day planner algorithm that projects nap times based on age-appropriate sleep windows and recalculates as actual sleep is logged. Storage library depends on platform choice.
+React Native with Expo. Web target for local development (browser-based dev loop, no emulators required). Native builds via EAS Build for app store distribution. Android focus for dev team; iOS testing handled by dedicated testers. Local-only data persistence, no backend. The core technical challenge is the dynamic day planner algorithm that projects nap times based on age-appropriate sleep windows and recalculates as actual sleep is logged. Storage library depends on React Native ecosystem options.
 
 ---
 
@@ -205,7 +199,7 @@ _To be defined - not yet discussed_
 ## 8. Open Questions
 
 ### Needs Answer Before Implementation
-**Q1:** What local storage library? (Depends on platform choice — Product Spec Q2)
+**Q1:** What local storage library? (Platform decided: React Native with Expo — evaluate React Native-compatible options)
   - Owner: Engineering
   - Needed by: Before development
   - Context: Affects data model implementation and query capabilities
@@ -215,12 +209,14 @@ _To be defined - not yet discussed_
 
 2. **No backend required:** Local-only data, no authentication, no cloud sync. Confirmed for MVP scope.
 
+3. **Web target parity:** Expo's web target provides sufficient fidelity for development. If wrong, may need emulator-based dev workflow. (Sara to verify)
+
 ---
 
 ## Action Items
 
 ### Decisions Required
-- [ ] **Platform choice:** React Native vs PWA (blocks all technical work)
+- [x] **Platform choice:** React Native with Expo (decided 2026-02-10)
 - [ ] **History view format:** list, timeline, chart, or combination (blocks design of history screen)
 - [ ] **Local storage library:** depends on platform choice
 
@@ -236,10 +232,11 @@ _To be defined - not yet discussed_
 - [ ] **Sleep history:** Design view/edit/add interface (blocked by history format decision)
 
 ### Technical
-- [ ] **Project scaffolding:** Set up repo, build tooling, CI (blocked by platform choice)
+- [ ] **Project scaffolding:** Set up Expo project, build tooling, CI
 - [ ] **Data model:** Define local storage schema for sleep entries and baby profile
 - [ ] **Sleep window algorithm:** Implement day planner projection and recalculation logic
-- [ ] **Technical spec:** Fill in architecture, components, and testing sections (blocked by platform choice)
+- [ ] **Technical spec:** Fill in architecture, components, and testing sections
+- [ ] **Verify Expo web target** works for React Native dev loop (Owner: Sara)
 
 ### Validation
 - [ ] **Validate assumptions** with team: single baby, manual only, local-only, standard guidelines
@@ -249,3 +246,4 @@ _To be defined - not yet discussed_
 
 ## References
 - **Transcript:** transcripts/2026-02/2026-02-10-planning-sleepy-baby-mvp-kickoff.md
+- **Transcript:** transcripts/2026-02/2026-02-10-technical-platform-decision-react-native-with-expo.md
