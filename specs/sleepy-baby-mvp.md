@@ -83,7 +83,7 @@ _No open product questions._
 ## Dependencies
 
 - **CI/CD Pipeline** — Builds the Expo web target and deploys to a hosting provider
-- **Web Hosting** — Static hosting for the web build [DECISION PENDING: hosting provider — e.g., Vercel, Netlify, GitHub Pages]
+- **Web Hosting** — GitHub Pages for static hosting of the Expo web build (ADR-002)
 
 ## Open Questions
 
