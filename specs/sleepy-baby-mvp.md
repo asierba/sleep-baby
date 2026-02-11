@@ -14,6 +14,19 @@ Existing apps like Huckleberry hide sleep predictions behind push notifications 
 - Multi-baby support (single baby first)
 - Caregiver sharing (single user first)
 
+## Sleep History View
+
+**MVP (v1.0): Simple card list** (Option A — `mockups/sleep-history/option-a-simple-list.html`)
+- Entries grouped by day, each card shows: nap name, time range, duration
+- Large tap targets — tap any card to edit
+- Reverse chronological within each day
+
+**Post-MVP evolution:**
+- v1.1: Add mini timeline header per day (visual only, no interaction — see Option C mockup)
+- v1.2: Collapsible hybrid — collapsed timeline bars by default, tap day to expand cards, today auto-expanded (Alex's mashup of Options B + C)
+
+Design mockups for all options preserved at `mockups/sleep-history/`.
+
 ## Competitive Context
 
 8 competitor apps analyzed (Huckleberry, Baby Tracker/Nighp, Baby Connect, Glow Baby, Nanit, Wonder Weeks, Nanni AI, Nara Baby Tracker). Key findings:
@@ -54,7 +67,6 @@ Sources: AAP/AASM sleep recommendations, Cleveland Clinic (Dr. Barrett) wake win
 
 ## Open Questions
 
-- [OPEN QUESTION: What format should the sleep history view take — list, timeline, or chart? Competitive research shows charts + timelines are industry standard (Baby Connect: color-coded timeline + reports; Nara: sleep/wake graphs by day/week). Deferred to design phase]
 - [ASSUMPTION: Baby's age or birthdate must be configured during onboarding to calculate appropriate sleep windows]
 
 ---
