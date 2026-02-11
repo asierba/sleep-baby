@@ -67,7 +67,7 @@ Sources: AAP/AASM sleep recommendations, Cleveland Clinic (Dr. Barrett) wake win
 
 ## Open Questions
 
-- [ASSUMPTION: Baby's age or birthdate must be configured during onboarding to calculate appropriate sleep windows]
+_No open product questions._
 
 ---
 
@@ -86,5 +86,4 @@ _To be defined — not yet discussed._
 
 ## Open Questions
 
-- [OPEN QUESTION: How should the day planner recalculation algorithm work? What inputs beyond baby age and last wake time?]
-- [ASSUMPTION: App must work well on mobile with one-handed use as a hard UX constraint — confirmed by competitive analysis: all top apps use large, easy buttons for one-handed use; Baby Connect adds voice (Siri/Alexa) and Apple Watch support]
+- [DECISION PENDING: Day planner recalculation algorithm — deferred to implementation time]
