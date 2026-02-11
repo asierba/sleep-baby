@@ -27,6 +27,12 @@ Existing apps like Huckleberry hide sleep predictions behind push notifications 
 
 Design mockups for all options preserved at `mockups/sleep-history/`.
 
+## Branding & Visual Identity
+
+- **App display name:** "Sleepy Baby"
+- **App icon:** Custom icon replacing Expo defaults; adaptive icon for Android, favicon for web
+- **Splash screen:** Custom splash screen with app logo shown on launch
+
 ## Competitive Context
 
 8 competitor apps analyzed (Huckleberry, Baby Tracker/Nighp, Baby Connect, Glow Baby, Nanit, Wonder Weeks, Nanni AI, Nara Baby Tracker). Key findings:
