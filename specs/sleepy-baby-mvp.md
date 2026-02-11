@@ -13,12 +13,10 @@ Existing apps like Huckleberry hide sleep predictions behind push notifications 
 - Push notifications (core experience is pull-based; can layer on later)
 - Multi-baby support (single baby first)
 - Caregiver sharing (single user first)
-- Platform decision (deferred to after feature spec)
 
 ## Open Questions
 
 - [OPEN QUESTION: What format should the sleep history view take — list, timeline, or chart? Deferred to design phase]
-- [OPEN QUESTION: Platform choice — native iOS, React Native, or responsive web app? Deferred to after feature spec]
 - [OPEN QUESTION: What is the source for age-appropriate sleep window data? Pediatric guidelines, custom research, or configurable by user?]
 - [ASSUMPTION: Baby's age or birthdate must be configured during onboarding to calculate appropriate sleep windows]
 - [ASSUMPTION: Sleep window durations are based on established pediatric sleep guidelines (e.g., 3 months = 1-1.5h wake window)]
@@ -31,7 +29,8 @@ Existing apps like Huckleberry hide sleep predictions behind push notifications 
 
 ## Key Decisions
 
-_To be defined — no technical decisions made yet. Platform and architecture deferred to after feature spec._
+- **React Native with Expo** — Web target for local development, EAS Build for store distribution (ADR-001)
+- **Android focus for dev team** — iOS testing handled by dedicated testers (ADR-001)
 
 ## Dependencies
 
@@ -39,6 +38,5 @@ _To be defined — not yet discussed._
 
 ## Open Questions
 
-- [DECISION PENDING: Platform — native iOS vs React Native vs responsive web app — depends on team skills and UX requirements]
 - [OPEN QUESTION: How should the day planner recalculation algorithm work? What inputs beyond baby age and last wake time?]
 - [ASSUMPTION: App must work well on mobile with one-handed use as a hard UX constraint]
