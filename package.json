@@ -1,6 +1,7 @@
 {
   "name": "sleepy-baby",
   "version": "1.0.0",
+  "homepage": "https://asierba.github.io/sleep-baby/",
   "main": "index.js",
   "scripts": {
     "start": "expo start",
