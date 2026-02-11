@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Option D: Weekly Overview + Day Detail</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f0f0f5;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    color: #1a1a2e;
+  }
+  .phone {
+    width: 390px;
+    min-height: 844px;
+    background: #f8f8fc;
+    border-radius: 40px;
+    border: 8px solid #1a1a2e;
+    overflow: hidden;
+    position: relative;
+  }
+  .status-bar {
+    height: 54px;
+    background: #6c5ce7;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 8px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .header {
+    background: #6c5ce7;
+    color: white;
+    padding: 16px 24px 20px;
+  }
+  .header h1 { font-size: 28px; font-weight: 700; }
+  .header p { font-size: 14px; opacity: 0.8; margin-top: 4px; }
+  .content {
+    padding: 0 16px 100px;
+  }
+
+  .week-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 4px 8px;
+  }
+  .week-nav-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: white;
+    border: none;
+    font-size: 18px;
+    color: #6c5ce7;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .week-nav-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a2e;
+  }
+
+  .week-card {
+    background: white;
+    border-radius: 14px;
+    padding: 16px 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .week-header {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 0;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .week-time-axis {
+    grid-column: 2;
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: #bbb;
+    padding: 0 2px;
+  }
+  .week-row {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 0;
+    align-items: center;
+    margin-bottom: 6px;
+    cursor: pointer;
+    padding: 3px 0;
+    border-radius: 6px;
+    transition: background 0.15s;
+  }
+  .week-row:active {
+    background: #f8f8fc;
+  }
+  .week-row.selected {
+    background: #f0edff;
+  }
+  .week-day-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #888;
+    text-align: center;
+  }
+  .week-day-label.today {
+    color: #6c5ce7;
+  }
+  .week-bar {
+    height: 22px;
+    background: #f0f0f5;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+  .week-block {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    border-radius: 3px;
+  }
+  .week-block.nap {
+    background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+  }
+  .week-block.night {
+    background: linear-gradient(135deg, #2d1b69, #6c5ce7);
+  }
+
+  .divider {
+    height: 1px;
+    background: #e8e8f0;
+    margin: 20px 0 4px;
+  }
+
+  .detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 4px 10px;
+  }
+  .detail-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a2e;
+  }
+  .detail-total {
+    font-size: 13px;
+    color: #6c5ce7;
+    font-weight: 600;
+  }
+
+  .entry-card {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .entry {
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+  .entry:active { background: #f8f8fc; }
+  .entry + .entry { border-top: 1px solid #f0f0f5; }
+  .entry-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .entry-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+  .entry-icon.nap { background: #dfe6fd; }
+  .entry-icon.night { background: #2d1b69; color: white; }
+  .entry-name { font-weight: 600; font-size: 14px; }
+  .entry-time { font-size: 12px; color: #888; margin-top: 1px; }
+  .entry-right { text-align: right; }
+  .entry-duration { font-size: 14px; font-weight: 600; color: #6c5ce7; }
+  .wake-window { font-size: 11px; color: #e17055; font-weight: 500; margin-top: 1px; }
+  .wake-window.good { color: #00b894; }
+
+  .fab {
+    position: absolute;
+    bottom: 30px;
+    right: 24px;
+    width: 56px;
+    height: 56px;
+    background: #6c5ce7;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 28px;
+    box-shadow: 0 4px 12px rgba(108,92,231,0.4);
+    cursor: pointer;
+  }
+  .badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: #6c5ce7;
+    color: white;
+    margin-left: 4px;
+    vertical-align: middle;
+  }
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="status-bar">9:41</div>
+  <div class="header">
+    <h1>Sleep History</h1>
+    <p>Tap a day to see details</p>
+  </div>
+
+  <div class="content">
+    <!-- Week navigator -->
+    <div class="week-nav">
+      <button class="week-nav-btn">&lsaquo;</button>
+      <div class="week-nav-label">Feb 4 &ndash; Feb 10</div>
+      <button class="week-nav-btn">&rsaquo;</button>
+    </div>
+
+    <!-- Week overview -->
+    <div class="week-card">
+      <div class="week-header">
+        <div></div>
+        <div class="week-time-axis">
+          <span>6a</span><span>9a</span><span>12p</span><span>3p</span><span>6p</span><span>9p</span>
+        </div>
+      </div>
+
+      <div class="week-row">
+        <div class="week-day-label">Tue</div>
+        <div class="week-bar">
+          <div class="week-block nap" style="left: 8.3%; width: 4.2%;"></div>
+          <div class="week-block nap" style="left: 23.6%; width: 6.9%;"></div>
+          <div class="week-block nap" style="left: 44.4%; width: 5.6%;"></div>
+          <div class="week-block night" style="left: 72.2%; width: 27.8%;"></div>
+        </div>
+      </div>
+
+      <div class="week-row">
+        <div class="week-day-label">Wed</div>
+        <div class="week-bar">
+          <div class="week-block night" style="left: 0%; width: 3.5%;"></div>
+          <div class="week-block nap" style="left: 11.1%; width: 5.6%;"></div>
+          <div class="week-block nap" style="left: 27.8%; width: 6.2%;"></div>
+          <div class="week-block night" style="left: 72.2%; width: 27.8%;"></div>
+        </div>
+      </div>
+
+      <div class="week-row">
+        <div class="week-day-label">Thu</div>
+        <div class="week-bar">
+          <div class="week-block night" style="left: 0%; width: 2.8%;"></div>
+          <div class="week-block nap" style="left: 9.7%; width: 4.9%;"></div>
+          <div class="week-block nap" style="left: 25%; width: 7.6%;"></div>
+          <div class="week-block nap" style="left: 43.8%; width: 5.6%;"></div>
+          <div class="week-block night" style="left: 70.8%; width: 29.2%;"></div>
+        </div>
+      </div>
+
+      <div class="week-row">
+        <div class="week-day-label">Fri</div>
+        <div class="week-bar">
+          <div class="week-block night" style="left: 0%; width: 4.2%;"></div>
+          <div class="week-block nap" style="left: 10.4%; width: 5.6%;"></div>
+          <div class="week-block nap" style="left: 27.1%; width: 6.9%;"></div>
+          <div class="week-block night" style="left: 73.6%; width: 26.4%;"></div>
+        </div>
+      </div>
+
+      <div class="week-row">
+        <div class="week-day-label">Sat</div>
+        <div class="week-bar">
+          <div class="week-block night" style="left: 0%; width: 3.5%;"></div>
+          <div class="week-block nap" style="left: 10.4%; width: 4.9%;"></div>
+          <div class="week-block nap" style="left: 25%; width: 7.6%;"></div>
+          <div class="week-block nap" style="left: 43.8%; width: 5.6%;"></div>
+          <div class="week-block night" style="left: 70.8%; width: 29.2%;"></div>
+        </div>
+      </div>
+
+      <div class="week-row">
+        <div class="week-day-label">Sun</div>
+        <div class="week-bar">
+          <div class="week-block night" style="left: 0%; width: 4.2%;"></div>
+          <div class="week-block nap" style="left: 11.1%; width: 5.6%;"></div>
+          <div class="week-block nap" style="left: 38.9%; width: 8.3%;"></div>
+          <div class="week-block night" style="left: 73.6%; width: 26.4%;"></div>
+        </div>
+      </div>
+
+      <div class="week-row selected">
+        <div class="week-day-label today">Mon <span class="badge">Today</span></div>
+        <div class="week-bar">
+          <div class="week-block night" style="left: 0%; width: 2.8%;"></div>
+          <div class="week-block nap" style="left: 8.3%; width: 4.2%;"></div>
+          <div class="week-block nap" style="left: 22.2%; width: 7.4%;"></div>
+          <div class="week-block nap" style="left: 41.7%; width: 6.9%;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Day detail -->
+    <div class="detail-header">
+      <div class="detail-title">Monday, Feb 10 <span class="badge">Today</span></div>
+      <div class="detail-total">3h 20m total</div>
+    </div>
+
+    <div class="entry-card">
+      <div class="entry">
+        <div class="entry-left">
+          <div class="entry-icon nap">😴</div>
+          <div>
+            <div class="entry-name">Nap 3</div>
+            <div class="entry-time">1:30 PM &rarr; 2:45 PM</div>
+          </div>
+        </div>
+        <div class="entry-right">
+          <div class="entry-duration">1h 15m</div>
+          <div class="wake-window">awake 2h 10m</div>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-left">
+          <div class="entry-icon nap">😴</div>
+          <div>
+            <div class="entry-name">Nap 2</div>
+            <div class="entry-time">10:00 AM &rarr; 11:20 AM</div>
+          </div>
+        </div>
+        <div class="entry-right">
+          <div class="entry-duration">1h 20m</div>
+          <div class="wake-window good">awake 1h 45m</div>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-left">
+          <div class="entry-icon nap">😴</div>
+          <div>
+            <div class="entry-name">Nap 1</div>
+            <div class="entry-time">7:30 AM &rarr; 8:15 AM</div>
+          </div>
+        </div>
+        <div class="entry-right">
+          <div class="entry-duration">45m</div>
+          <div class="wake-window good">awake 1h 00m</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Yesterday detail (collapsed hint) -->
+    <div class="detail-header" style="opacity: 0.5; margin-top: 8px;">
+      <div class="detail-title">Sunday, Feb 9</div>
+      <div class="detail-total">14h 30m total</div>
+    </div>
+    <div class="entry-card" style="opacity: 0.4;">
+      <div class="entry">
+        <div class="entry-left">
+          <div class="entry-icon night">🌙</div>
+          <div>
+            <div class="entry-name">Night Sleep</div>
+            <div class="entry-time">7:00 PM &rarr; 6:30 AM</div>
+          </div>
+        </div>
+        <div class="entry-right">
+          <div class="entry-duration">11h 30m</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fab">+</div>
+</div>
+</body>
+</html>
