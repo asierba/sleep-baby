@@ -8,8 +8,9 @@ A mobile app helping parents track baby sleep and predict optimal nap times base
 - Tech: React Native with Expo (ADR-001)
 
 ## User Stories
-This Epic contains 5 INVEST-compliant user stories.
+This Epic contains 6 INVEST-compliant user stories.
 
+0. [SB-000: Steel Thread](./sb-000-steel-thread.md) — Project scaffolding & CI/CD pipeline
 1. [SB-001: Baby Onboarding](./sb-001-baby-onboarding.md) — Setup baby profile
 2. [SB-002: Sleep Tracking](./sb-002-sleep-tracking.md) — Start/stop sleep logging
 3. [SB-003: Next Sleep Prediction](./sb-003-next-sleep-prediction.md) — Main screen countdown
@@ -17,7 +18,8 @@ This Epic contains 5 INVEST-compliant user stories.
 5. [SB-005: Day Planner](./sb-005-day-planner.md) — Projected daily schedule
 
 ## Implementation Order
-1. SB-001: Baby Onboarding (no dependencies)
+0. SB-000: Steel Thread (no dependencies — must complete first)
+1. SB-001: Baby Onboarding (depends on SB-000)
 2. SB-002: Sleep Tracking (depends on SB-001)
 3. SB-003 + SB-004: Next Sleep Prediction + Sleep History (parallel, depend on SB-001 + SB-002)
 4. SB-005: Day Planner (depends on SB-001 + SB-002 + SB-003)
