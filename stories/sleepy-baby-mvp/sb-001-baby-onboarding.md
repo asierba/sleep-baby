@@ -18,7 +18,7 @@ As a parent, I want to set up my baby's profile with date of birth, so the app c
 - [Onboarding](../../mockups/onboarding.html)
 
 ## Dependencies
-None — start here.
+- Blocked by: SB-000 (Steel Thread) — needs project scaffolding and CI/CD pipeline
 
 ## Reference
 - Specification: specs/sleepy-baby-mvp.md
