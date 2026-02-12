@@ -26,6 +26,7 @@ Key aspects:
   7. `getByTitle` — Less reliable, not consistently read by screenreaders.
   8. `getByTestId` — Last resort. The user cannot see or hear test IDs. Use only when no semantic query works.
 - **No testing implementation details** — Don't assert on component state, internal method calls, or render counts.
+- **Every code change must be covered by tests** — No feature or bug fix lands without corresponding test coverage. If a behavior changes, a test must verify it.
 
 ## Alternatives Considered
 
