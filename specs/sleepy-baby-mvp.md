@@ -85,6 +85,9 @@ _No open product questions._
 
 - **React Native with Expo** — Web target for local development, EAS Build for store distribution (ADR-001)
 - **Android focus for dev team** — iOS testing handled by dedicated testers (ADR-001)
+- **TypeScript** — Project language. Expo's default, provides type safety and enables type-aware linting (ADR-003)
+- **ESLint + Prettier** — Code quality and formatting enforcement in CI (ADR-003)
+- **Jest + React Native Testing Library** — Integration-first testing with accessibility-first query priority (ADR-004)
 
 ## Dependencies
 
