@@ -7,7 +7,7 @@ As a parent, I want to see a projected daily schedule of naps and bedtime that r
 - Day planner shows projected nap times and bedtime for the full day
 - Projections are based on baby's age, wake windows, and expected nap count for age
 - Schedule recalculates automatically when a new sleep session is logged
-- Completed naps are visually distinguished from projected naps
+- Completed, in-progress, and projected naps are each visually distinct
 - If a nap runs long or short, all subsequent projections shift accordingly
 - Bedtime estimate adjusts based on remaining naps and wake windows
 - Day planner accounts for the correct number of naps per day based on age bracket
@@ -18,6 +18,10 @@ As a parent, I want to see a projected daily schedule of naps and bedtime that r
 - [DECISION PENDING: Day planner recalculation algorithm — deferred to implementation time]
 - Inputs: baby age → wake window + nap count, actual logged sleep entries for today
 - Must handle edge cases: late first nap, skipped nap, extra-long nap
+## Mockups
+- [Main screen — awake](../../mockups/main-screen-awake.html)
+- [Main screen — sleeping](../../mockups/main-screen-sleeping.html)
+
 ## Dependencies
 - Blocked by: SB-001 (Baby Onboarding) — needs baby age for sleep parameters
 - Blocked by: SB-002 (Sleep Tracking) — needs logged sleep data
