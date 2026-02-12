@@ -15,10 +15,6 @@ As a parent, I want to set up my baby's profile with name and date of birth, so 
 - Sleep window reference data embedded in app (see spec table: age brackets 0–1mo through 18–24mo)
 - React Native with Expo (ADR-001)
 - Local storage for baby profile persistence
-
-## Size
-Small (1–3 days) — 6 ACs
-
 ## Dependencies
 None — start here.
 

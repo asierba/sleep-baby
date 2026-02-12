@@ -17,10 +17,6 @@ As a parent, I want to view past sleep entries and edit them, so I can fix wrong
 - MVP design: Option A — simple card list (see mockups/sleep-history/option-a-simple-list.html)
 - Post-MVP: v1.1 adds mini timeline header, v1.2 adds collapsible hybrid
 - Large tap targets per competitive analysis
-
-## Size
-Medium (3–5 days) — 8 ACs
-
 ## Dependencies
 - Blocked by: SB-001 (Baby Onboarding) — needs baby profile
 - Blocked by: SB-002 (Sleep Tracking) — needs sleep data to display

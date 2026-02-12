@@ -16,10 +16,6 @@ As a parent, I want to see when my baby should sleep next as soon as I open the 
 - Wake window ranges per age bracket (see spec table)
 - Use conservative (shorter) wake windows when sources conflict
 - Core differentiator validated: no free app shows next-nap prediction front-and-center
-
-## Size
-Medium (3–5 days) — 7 ACs
-
 ## Dependencies
 - Blocked by: SB-001 (Baby Onboarding) — needs baby age for wake window lookup
 - Blocked by: SB-002 (Sleep Tracking) — needs last wake time from tracking data

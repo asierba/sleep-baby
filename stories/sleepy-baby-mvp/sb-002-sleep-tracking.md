@@ -16,10 +16,6 @@ As a parent, I want to tap a single button to record when my baby falls asleep a
 - Large tap targets per competitive analysis (all top apps use one-touch controls)
 - React Native with Expo (ADR-001)
 - Local storage for sleep session persistence
-
-## Size
-Medium (3–5 days) — 7 ACs
-
 ## Dependencies
 - Blocked by: SB-001 (Baby Onboarding) — needs baby profile to exist
 

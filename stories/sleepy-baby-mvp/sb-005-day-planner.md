@@ -18,10 +18,6 @@ As a parent, I want to see a projected daily schedule of naps and bedtime that r
 - [DECISION PENDING: Day planner recalculation algorithm — deferred to implementation time]
 - Inputs: baby age → wake window + nap count, actual logged sleep entries for today
 - Must handle edge cases: late first nap, skipped nap, extra-long nap
-
-## Size
-Large (5–10 days) — 9 ACs
-
 ## Dependencies
 - Blocked by: SB-001 (Baby Onboarding) — needs baby age for sleep parameters
 - Blocked by: SB-002 (Sleep Tracking) — needs logged sleep data
