@@ -1,0 +1,11 @@
+dist/
+node_modules/
+.expo/
+.d3/
+specs/
+stories/
+transcripts/
+mockups/
+research/
+CLAUDE.md
+README.md
