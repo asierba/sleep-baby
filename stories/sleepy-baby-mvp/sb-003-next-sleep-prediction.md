@@ -15,8 +15,10 @@ As a parent, I want to see when my baby should sleep next as soon as I open the 
 
 ## Technical Notes
 - Wake window ranges per age bracket (see spec table)
+- For ages beyond 24 months, use the 18–24mo bracket as fallback
 - Use conservative (shorter) wake windows when sources conflict
 - Core differentiator validated: no free app shows next-nap prediction front-and-center
+- [DECISION PENDING: Extend Sleep Window Reference Data (specs/sleepy-baby-mvp.md) beyond 24 months — research what to show for older toddlers (2–3+ years) who still nap]
 ## Mockups
 - [Main screen — awake](../../mockups/main-screen-awake.html)
 - [Main screen — sleeping](../../mockups/main-screen-sleeping.html)

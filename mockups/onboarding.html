@@ -76,57 +76,46 @@
     line-height: 1.4;
     margin-bottom: 40px;
   }
-  .date-input-group {
+  .date-picker-btn {
     width: 100%;
-    margin-bottom: 16px;
+    background: white;
+    border: 2px solid #e8e0ff;
+    border-radius: 16px;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: border-color 0.2s;
   }
-  .date-label {
+  .date-picker-btn:active {
+    border-color: #6c5ce7;
+  }
+  .date-picker-label {
     font-size: 13px;
     font-weight: 600;
     color: #888;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-bottom: 8px;
   }
-  .date-fields {
-    display: flex;
-    gap: 10px;
-  }
-  .date-field {
-    flex: 1;
-    background: white;
-    border: 2px solid #e8e0ff;
-    border-radius: 14px;
-    padding: 14px 12px;
-    text-align: center;
+  .date-picker-value {
     font-size: 20px;
     font-weight: 600;
     color: #1a1a2e;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .date-field:focus {
-    border-color: #6c5ce7;
-  }
-  .date-field::placeholder {
-    color: #ccc;
-    font-weight: 400;
-  }
-  .date-field-label {
-    font-size: 11px;
-    color: #aaa;
-    text-align: center;
     margin-top: 4px;
   }
+  .date-picker-chevron {
+    font-size: 20px;
+    color: #ccc;
+  }
   .age-preview {
-    width: 100%;
-    background: #f0eaff;
-    border-radius: 12px;
-    padding: 12px 16px;
-    margin-top: 8px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+    background: #f0eaff;
+    border-radius: 20px;
+    padding: 8px 16px;
+    margin-top: 12px;
   }
   .age-preview-icon {
     font-size: 20px;
@@ -155,12 +144,6 @@
   .continue-btn:active {
     transform: scale(0.98);
   }
-  .privacy-note {
-    font-size: 12px;
-    color: #aaa;
-    text-align: center;
-    line-height: 1.4;
-  }
 </style>
 </head>
 <body>
@@ -174,33 +157,22 @@
     <h1>When was your baby born?</h1>
     <div class="subtitle">We use this to calculate age-appropriate sleep windows for your baby.</div>
 
-    <div class="date-input-group">
-      <div class="date-label">Birthdate</div>
-      <div class="date-fields">
-        <div style="flex: 1.2;">
-          <input type="text" class="date-field" placeholder="MM" value="08" maxlength="2">
-          <div class="date-field-label">Month</div>
-        </div>
-        <div style="flex: 1.2;">
-          <input type="text" class="date-field" placeholder="DD" value="10" maxlength="2">
-          <div class="date-field-label">Day</div>
-        </div>
-        <div style="flex: 1.5;">
-          <input type="text" class="date-field" placeholder="YYYY" value="2025" maxlength="4">
-          <div class="date-field-label">Year</div>
-        </div>
+    <div class="date-picker-btn">
+      <div>
+        <div class="date-picker-label">Birthdate</div>
+        <div class="date-picker-value">August 10, 2025</div>
       </div>
+      <div class="date-picker-chevron">›</div>
     </div>
 
     <div class="age-preview">
       <span class="age-preview-icon">🎂</span>
-      <span class="age-preview-text">6 months old &mdash; 2–3 naps per day</span>
+      <span class="age-preview-text">6 months old</span>
     </div>
 
     <div class="spacer"></div>
 
     <button class="continue-btn">Get Started</button>
-    <div class="privacy-note">All data stays on your device. No account needed.</div>
   </div>
 </div>
 </body>
