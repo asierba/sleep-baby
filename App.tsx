@@ -34,7 +34,7 @@ export default function App() {
   const handleDateChange = ({ date }: { date: DateType }) => {
     setDob(date);
     setShowPicker(false);
-    AsyncStorage.setItem(STORAGE_KEY, new Date(date.toString()).toISOString());
+    AsyncStorage.setItem(STORAGE_KEY, new Date(date!.toString()).toISOString());
   };
 
   return (

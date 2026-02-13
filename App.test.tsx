@@ -5,8 +5,18 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react-native';
 import App from './App';
 
+const currentDate = (date: Date) =>
+  jest.useFakeTimers({
+    now: date,
+    doNotFake: ['setTimeout', 'clearTimeout', 'setImmediate', 'clearImmediate', 'setInterval', 'clearInterval'],
+  });
+
 beforeEach(async () => {
   await AsyncStorage.clear();
+});
+
+afterEach(() => {
+  jest.useRealTimers();
 });
 
 it('prompts for date of birth on first launch', () => {
@@ -50,17 +60,11 @@ it.each([
 });
 
 it('disables future dates in the date picker', () => {
-  const realDate = Date;
-  const mockDate = new realDate(2026, 1, 3);
-  jest
-    .spyOn(global, 'Date')
-    .mockImplementation((...args: unknown[]) => (args.length ? new realDate(...(args as [unknown])) : mockDate));
+  currentDate(new Date(2026, 1, 3));
 
   render(<App />);
   fireEvent.press(screen.getByRole('button', { name: /birthdate/i }));
   expect(screen.getByRole('button', { name: '4' })).toBeDisabled();
-
-  jest.restoreAllMocks();
 });
 
 it('hides birthdate button when date picker is open', () => {
@@ -72,10 +76,7 @@ it('hides birthdate button when date picker is open', () => {
 });
 
 it('saves selected birthdate to storage', async () => {
-  jest.useFakeTimers({
-    now: new Date(2026, 1, 3),
-    doNotFake: ['setTimeout', 'clearTimeout', 'setImmediate', 'clearImmediate', 'setInterval', 'clearInterval'],
-  });
+  currentDate(new Date(2026, 1, 3));
 
   render(<App />);
 
@@ -85,8 +86,6 @@ it('saves selected birthdate to storage', async () => {
   await waitFor(async () => {
     expect(await AsyncStorage.getItem('baby_dob')).toBe(new Date(2026, 1, 1).toISOString());
   });
-
-  jest.useRealTimers();
 });
 
 it('restores saved birthdate from storage on launch', async () => {
