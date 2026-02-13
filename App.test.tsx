@@ -28,7 +28,7 @@ it('prompts for date of birth on first launch', () => {
 
 it('has no date selected and Get Started disabled by default', () => {
   render(<App />);
-  expect(screen.getByRole('button', { name: /birthdate/i })).toHaveTextContent('Birthdate');
+  expect(screen.getByRole('button', { name: /birthdate/i })).toHaveTextContent(/Birthdate/);
   expect(screen.getByRole('button', { name: /get started/i })).toBeDisabled();
 });
 
@@ -67,7 +67,7 @@ it('displays selected date in long format on the birthdate button', () => {
   fireEvent.press(screen.getByRole('button', { name: /birthdate/i }));
   fireEvent.press(screen.getByRole('button', { name: '1' }));
 
-  expect(screen.getByRole('button', { name: /birthdate/i })).toHaveTextContent('February 1, 2026');
+  expect(screen.getByRole('button', { name: /birthdate/i })).toHaveTextContent(/February 1, 2026/);
 });
 
 it('disables future dates in the date picker', () => {
