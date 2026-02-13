@@ -30,13 +30,21 @@ function formatAge(months: number): string {
   return `${months} ${months === 1 ? 'month' : 'months'} old`;
 }
 
+type Screen = 'loading' | 'onboarding' | 'home' | 'editDob';
+
 export default function App() {
+  const [screen, setScreen] = useState<Screen>('loading');
   const [showPicker, setShowPicker] = useState(false);
   const [dob, setDob] = useState<DateType>(undefined);
 
   useEffect(() => {
     void AsyncStorage.getItem(STORAGE_KEY).then((stored) => {
-      if (stored) setDob(stored);
+      if (stored) {
+        setDob(stored);
+        setScreen('home');
+      } else {
+        setScreen('onboarding');
+      }
     });
   }, []);
 
@@ -46,6 +54,106 @@ export default function App() {
     setShowPicker(false);
     void AsyncStorage.setItem(STORAGE_KEY, new Date(date.toString()).toISOString());
   };
+
+  if (screen === 'loading') {
+    return (
+      <View style={styles.container}>
+        <StatusBar style="auto" />
+      </View>
+    );
+  }
+
+  if (screen === 'home') {
+    return (
+      <View style={styles.container}>
+        <View style={styles.homeContent}>
+          <View style={styles.illustration}>
+            <Text style={styles.illustrationEmoji}>👶</Text>
+          </View>
+          <Text role="heading" style={styles.homeHeading}>
+            Sleepy Baby
+          </Text>
+          {dob && (
+            <View style={styles.agePill}>
+              <Text style={styles.ageIcon}>🎂</Text>
+              <Text style={styles.ageText}>{formatAge(getAgeInMonths(new Date(dob.toString())))}</Text>
+            </View>
+          )}
+          <Pressable
+            role="button"
+            accessibilityLabel="Edit Birthdate"
+            style={styles.editDobButton}
+            onPress={() => {
+              setShowPicker(false);
+              setScreen('editDob');
+            }}
+          >
+            <Text style={styles.editDobText}>{dob ? formatDateLong(new Date(dob.toString())) : 'Set birthdate'}</Text>
+            <Text style={styles.chevron}>›</Text>
+          </Pressable>
+        </View>
+        <StatusBar style="auto" />
+      </View>
+    );
+  }
+
+  if (screen === 'editDob') {
+    return (
+      <View style={styles.container}>
+        <View style={styles.content}>
+          <Pressable
+            role="button"
+            accessibilityLabel="Back"
+            style={styles.backButton}
+            onPress={() => setScreen('home')}
+          >
+            <Text style={styles.backArrow}>‹</Text>
+            <Text style={styles.backText}>Back</Text>
+          </Pressable>
+
+          <Text role="heading" style={styles.heading}>
+            Edit Birthdate
+          </Text>
+
+          <View style={styles.pickerContainer}>
+            <DateTimePicker
+              mode="single"
+              date={dob}
+              maxDate={new Date()}
+              onChange={handleDateChange}
+              navigationPosition="around"
+              components={{
+                IconPrev: <Text style={styles.navArrow}>{'<'}</Text>,
+                IconNext: <Text style={styles.navArrow}>{'>'}</Text>,
+              }}
+              styles={{
+                disabled: styles.disabledDay,
+              }}
+            />
+          </View>
+
+          {dob && (
+            <View style={styles.agePill}>
+              <Text style={styles.ageIcon}>🎂</Text>
+              <Text style={styles.ageText}>{formatAge(getAgeInMonths(new Date(dob.toString())))}</Text>
+            </View>
+          )}
+
+          <View style={styles.spacer} />
+
+          <Pressable
+            role="button"
+            accessibilityLabel="Done"
+            style={styles.primaryButton}
+            onPress={() => setScreen('home')}
+          >
+            <Text style={styles.primaryButtonText}>Done</Text>
+          </Pressable>
+        </View>
+        <StatusBar style="auto" />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -105,9 +213,10 @@ export default function App() {
           role="button"
           accessibilityLabel="Get Started"
           disabled={!dob}
-          style={[styles.getStartedButton, !dob && styles.getStartedButtonDisabled]}
+          style={[styles.primaryButton, !dob && styles.primaryButtonDisabled]}
+          onPress={() => setScreen('home')}
         >
-          <Text style={styles.getStartedText}>Get Started</Text>
+          <Text style={styles.primaryButtonText}>Get Started</Text>
         </Pressable>
       </View>
       <StatusBar style="auto" />
@@ -126,6 +235,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     paddingTop: 80,
     paddingBottom: 32,
+  },
+  homeContent: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 32,
+    gap: 16,
   },
   illustration: {
     width: 120,
@@ -155,12 +271,34 @@ const styles = StyleSheet.create({
     lineHeight: 34,
     marginBottom: 8,
   },
+  homeHeading: {
+    fontSize: 26,
+    fontWeight: '700',
+    color: colors.textPrimary,
+  },
   subtitle: {
     fontSize: 15,
     color: colors.textSecondary,
     textAlign: 'center',
     lineHeight: 21,
     marginBottom: 40,
+  },
+  backButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+    marginBottom: 24,
+    gap: 4,
+  },
+  backArrow: {
+    fontSize: 24,
+    color: colors.primary,
+    fontWeight: '600',
+  },
+  backText: {
+    fontSize: 16,
+    color: colors.primary,
+    fontWeight: '600',
   },
   birthdateButton: {
     width: '100%',
@@ -191,6 +329,24 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#ccc',
   },
+  editDobButton: {
+    width: '100%',
+    backgroundColor: colors.white,
+    borderWidth: 2,
+    borderColor: colors.border,
+    borderRadius: 16,
+    paddingVertical: 16,
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 16,
+  },
+  editDobText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: colors.textPrimary,
+  },
   pickerContainer: {
     width: '100%',
   },
@@ -215,7 +371,7 @@ const styles = StyleSheet.create({
   spacer: {
     flex: 1,
   },
-  getStartedButton: {
+  primaryButton: {
     width: '100%',
     backgroundColor: colors.primary,
     borderRadius: 16,
@@ -226,12 +382,12 @@ const styles = StyleSheet.create({
     shadowRadius: 15,
     elevation: 8,
   },
-  getStartedButtonDisabled: {
+  primaryButtonDisabled: {
     backgroundColor: colors.primaryDisabled,
     shadowOpacity: 0,
     elevation: 0,
   },
-  getStartedText: {
+  primaryButtonText: {
     fontSize: 17,
     fontWeight: '700',
     color: colors.white,
