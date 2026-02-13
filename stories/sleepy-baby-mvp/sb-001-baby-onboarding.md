@@ -6,7 +6,9 @@ As a parent, I want to set up my baby's profile with date of birth, so the app c
 ## Acceptance Criteria
 - Parent is prompted for baby's date of birth on first launch via a native date picker
 - Date picker defaults to no date selected; "Get Started" button is disabled until a date is chosen
+- Date picker is a tappable button that opens the native picker (not inline)
 - Date picker is constrained to past dates only (no future dates)
+- Selected date displays in long format (e.g., "August 10, 2025")
 - App calculates and displays baby's current age in months from DOB
 - Baby profile persists across app restarts
 - Only DOB is required — no other setup steps
