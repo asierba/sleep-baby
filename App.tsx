@@ -21,6 +21,14 @@ function getAgeInMonths(dob: Date): number {
   return (now.getFullYear() - dob.getFullYear()) * 12 + (now.getMonth() - dob.getMonth());
 }
 
+function formatDateLong(date: Date): string {
+  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+function formatAge(months: number): string {
+  return `${months} ${months === 1 ? 'month' : 'months'} old`;
+}
+
 export default function App() {
   const [showPicker, setShowPicker] = useState(false);
   const [dob, setDob] = useState<DateType>(undefined);
@@ -68,10 +76,10 @@ export default function App() {
           style={styles.birthdateButton}
           onPress={() => setShowPicker(true)}
         >
-          <Text style={styles.birthdateLabel}>Birthdate</Text>
+          <Text style={styles.birthdateLabel}>{dob ? formatDateLong(new Date(dob.toString())) : 'Birthdate'}</Text>
         </Pressable>
       )}
-      {dob && <Text style={styles.age}>{getAgeInMonths(new Date(dob.toString()))} months old</Text>}
+      {dob && <Text style={styles.age}>{formatAge(getAgeInMonths(new Date(dob.toString())))}</Text>}
       <Pressable
         role="button"
         accessibilityLabel="Get Started"

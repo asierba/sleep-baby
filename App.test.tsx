@@ -42,11 +42,12 @@ it('enables Get Started after selecting a birthdate', () => {
 });
 
 it.each([
-  { monthsBack: 0, expectedAge: 0 },
-  { monthsBack: 3, expectedAge: 3 },
-  { monthsBack: 6, expectedAge: 6 },
-  { monthsBack: 12, expectedAge: 12 },
-])('shows $expectedAge months old for a birthdate $monthsBack months ago', ({ monthsBack, expectedAge }) => {
+  { monthsBack: 0, expected: '0 months old' },
+  { monthsBack: 1, expected: '1 month old' },
+  { monthsBack: 3, expected: '3 months old' },
+  { monthsBack: 6, expected: '6 months old' },
+  { monthsBack: 12, expected: '12 months old' },
+])('shows "$expected" for a birthdate $monthsBack months ago', ({ monthsBack, expected }) => {
   render(<App />);
 
   fireEvent.press(screen.getByRole('button', { name: /birthdate/i }));
@@ -55,7 +56,18 @@ it.each([
 
   fireEvent.press(screen.getByRole('button', { name: '1' }));
 
-  expect(screen.getByText(new RegExp(`${expectedAge} months old`, 'i'))).toBeOnTheScreen();
+  expect(screen.getByText(expected)).toBeOnTheScreen();
+});
+
+it('displays selected date in long format on the birthdate button', () => {
+  currentDate(new Date(2026, 1, 13));
+
+  render(<App />);
+
+  fireEvent.press(screen.getByRole('button', { name: /birthdate/i }));
+  fireEvent.press(screen.getByRole('button', { name: '1' }));
+
+  expect(screen.getByRole('button', { name: /birthdate/i })).toHaveTextContent('February 1, 2026');
 });
 
 it('disables future dates in the date picker', () => {
