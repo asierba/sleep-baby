@@ -1,7 +1,10 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import DateTimePicker, { DateType } from 'react-native-ui-datepicker';
+
+const STORAGE_KEY = 'baby_dob';
 
 const colors = {
   background: '#fff',
@@ -22,9 +25,16 @@ export default function App() {
   const [showPicker, setShowPicker] = useState(false);
   const [dob, setDob] = useState<DateType>(undefined);
 
+  useEffect(() => {
+    AsyncStorage.getItem(STORAGE_KEY).then((stored) => {
+      if (stored) setDob(stored);
+    });
+  }, []);
+
   const handleDateChange = ({ date }: { date: DateType }) => {
     setDob(date);
     setShowPicker(false);
+    AsyncStorage.setItem(STORAGE_KEY, new Date(date.toString()).toISOString());
   };
 
   return (

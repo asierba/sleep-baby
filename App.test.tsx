@@ -1,5 +1,13 @@
-import { fireEvent, render, screen } from '@testing-library/react-native';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+jest.mock('@react-native-async-storage/async-storage', () => require('./testing/fake-async-storage'));
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react-native';
 import App from './App';
+
+beforeEach(async () => {
+  await AsyncStorage.clear();
+});
 
 it('prompts for date of birth on first launch', () => {
   render(<App />);
@@ -61,4 +69,35 @@ it('hides birthdate button when date picker is open', () => {
   fireEvent.press(screen.getByRole('button', { name: /birthdate/i }));
 
   expect(screen.queryByRole('button', { name: /birthdate/i })).not.toBeOnTheScreen();
+});
+
+it('saves selected birthdate to storage', async () => {
+  jest.useFakeTimers({
+    now: new Date(2026, 1, 3),
+    doNotFake: ['setTimeout', 'clearTimeout', 'setImmediate', 'clearImmediate', 'setInterval', 'clearInterval'],
+  });
+
+  render(<App />);
+
+  fireEvent.press(screen.getByRole('button', { name: /birthdate/i }));
+  fireEvent.press(screen.getByRole('button', { name: '1' }));
+
+  await waitFor(async () => {
+    expect(await AsyncStorage.getItem('baby_dob')).toBe(new Date(2026, 1, 1).toISOString());
+  });
+
+  jest.useRealTimers();
+});
+
+it('restores saved birthdate from storage on launch', async () => {
+  const now = new Date();
+  const sixMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 6, now.getDate());
+  await AsyncStorage.setItem('baby_dob', sixMonthsAgo.toISOString());
+
+  render(<App />);
+
+  await waitFor(() => {
+    expect(screen.getByText(/6 months old/i)).toBeOnTheScreen();
+  });
+  expect(screen.getByRole('button', { name: /get started/i })).toBeEnabled();
 });
