@@ -7,10 +7,18 @@ import globals from 'globals';
 
 export default tseslint.config(
   {
-    ignores: ['dist/', 'node_modules/', '.expo/'],
+    ignores: ['dist/', 'node_modules/', '.expo/', 'jest.config.js'],
   },
   js.configs.recommended,
-  ...tseslint.configs.recommended,
+  ...tseslint.configs.recommendedTypeChecked,
+  {
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
   {
     plugins: {
       'react-hooks': reactHooks,
@@ -25,10 +33,15 @@ export default tseslint.config(
     rules: {
       ...reactHooks.configs.recommended.rules,
       '@typescript-eslint/no-non-null-assertion': 'error',
+      '@typescript-eslint/no-unsafe-type-assertion': 'error',
       'react-native/no-unused-styles': 'warn',
       'react-native/no-inline-styles': 'warn',
       'react-native/no-color-literals': 'warn',
     },
+  },
+  {
+    files: ['**/*.{js,mjs}'],
+    ...tseslint.configs.disableTypeChecked,
   },
   prettier,
 );

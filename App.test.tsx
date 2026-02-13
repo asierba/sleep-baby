@@ -1,4 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-require-imports
+// eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-unsafe-return
 jest.mock('@react-native-async-storage/async-storage', () => require('./testing/fake-async-storage'));
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -51,8 +51,7 @@ it.each([
 
   fireEvent.press(screen.getByRole('button', { name: /birthdate/i }));
 
-  const prevButton = screen.getByRole('button', { name: 'Prev' });
-  for (let i = 0; i < monthsBack; i++) fireEvent.press(prevButton);
+  for (let i = 0; i < monthsBack; i++) fireEvent.press(screen.getByRole('button', { name: 'Prev' }));
 
   fireEvent.press(screen.getByRole('button', { name: '1' }));
 

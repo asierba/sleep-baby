@@ -26,7 +26,7 @@ export default function App() {
   const [dob, setDob] = useState<DateType>(undefined);
 
   useEffect(() => {
-    AsyncStorage.getItem(STORAGE_KEY).then((stored) => {
+    void AsyncStorage.getItem(STORAGE_KEY).then((stored) => {
       if (stored) setDob(stored);
     });
   }, []);
@@ -35,7 +35,7 @@ export default function App() {
     if (!date) return;
     setDob(date);
     setShowPicker(false);
-    AsyncStorage.setItem(STORAGE_KEY, new Date(date.toString()).toISOString());
+    void AsyncStorage.setItem(STORAGE_KEY, new Date(date.toString()).toISOString());
   };
 
   return (
